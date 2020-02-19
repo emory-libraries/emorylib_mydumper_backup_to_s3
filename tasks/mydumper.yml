@@ -1,0 +1,23 @@
+---
+- name: Create temporary directory
+  file:
+    path: '{{ mydumper_tmp_dir }}/{{ item.output_dir }}'
+    state: directory
+  loop: '{{ mydumper_backups }}'
+  loop_control:
+    extended: yes
+  register: output_dirs
+
+- name: Mydumper command
+  shell: <
+    xmydumper --defaults-file {{ item.defaults_file | d () }} {{ item.host | d (False) | ternary (hosts, "") }} {{ item.user | d (False) | ternary (users, "") }}
+  ignore_errors: yes
+  register: mydumper_command
+  vars:
+    hosts: '--host {{ item.host | d () }}'
+    users: '--user {{ item.user | d () }}'
+
+- debug:
+    var: mydumper_command
+
+
