@@ -1,0 +1,8 @@
+---
+- name: Copy mydumper outputdir to s3
+  aws_s3:
+    bucket: '{{ item.s3.bucket }}'
+    object: '{{ item.s3.object }}'
+    src: '{{ item.dir_path }}'
+  loop: '{{ mydumper_backups }}'
+  when: item.s3 is defined 
