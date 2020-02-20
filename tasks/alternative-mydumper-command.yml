@@ -2,5 +2,13 @@
   ignore_errors: yes
   register: test_cmd
 
-#- debug:
-#    var: test_cmd
+- name: Create new list with output dir location
+  set_fact:
+    __mydumper_backups: '{{ __mydumper_backups | d([]) + [mydumper_backups2[outer_index0 | int] | combine({"dir_path": outputdir}, recursive=True)] }}'
+  vars:
+    append_outputdir: '{{ outer_item.index_outputdir | d (false) }}'
+    index_outputdir: '-{{ outer_index1 }}'
+    outputdir: '{{ outer_item.__outputdir | d (outer.item._o) }}{{ append_outputdir | ternary (index_outputdir,"") }}'
+
+- debug:
+    var: __mydumper_backups
