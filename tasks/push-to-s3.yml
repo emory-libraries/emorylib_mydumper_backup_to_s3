@@ -3,7 +3,7 @@
   aws_s3:
     bucket: '{{ item.s3.bucket }}'
     object: '{{ item.s3.object }}'
-    src: '{{ item.dir_path }}'
+    src: '{{ item.dir_path }}/*'
     mode: put
   loop: '{{ __mydumper_backups }}'
   when: item.s3 is defined 
