@@ -6,12 +6,13 @@
     file: alternative-mydumper-command.yml
     apply:
       vars:
-        outer_index: '{{ ansible_loop.index }}'
+        outer_index1: '{{ ansible_loop.index }}'
+        outer_index0: '{{ ansible_loop.index0 }}'
   loop: '{{ mydumper_backups2 }}'
   loop_control:
     loop_var: outer_item
     extended: yes
 
-- name: Include tasks for backups via mydumper
-  include_tasks:
-    file: mydumper.yml
+#- name: Include tasks for backups via mydumper
+#  include_tasks:
+#    file: mydumper.yml
