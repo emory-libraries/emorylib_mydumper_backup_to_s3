@@ -1,3 +1,16 @@
+- name: Set or increment loop variable
+  set_fact:
+   loop_index: '{{ loop_index | d (0) + 1 }}'
+
+- name: Update dictionary with index
+  set_fact:
+    '{{ outer_item }}': '{{ outer_item | combine ({outer_item: {"tmp_dir_path": "outputhere" }}, recursive=True) }}'
+  
+- debug:
+    var: outer_item
+
+- fail: 
+
 - shell: '{{ lookup("template", "test_command.j2") }}'
   ignore_errors: yes
   register: test_cmd
@@ -5,4 +18,3 @@
 - debug:
     var: test_cmd
 
-- fail:
