@@ -1,6 +1,6 @@
 - name: Create outputdir
   file:
-    path: '{{ outer_item.outputdir }}'
+    path: '{{ outer_item.__outputdir | d (outer_item._o) }}'
     state: directory
 
 - name:  Run mydumper command
@@ -14,6 +14,3 @@
     append_outputdir: '{{ outer_item.index_outputdir | d (false) }}'
     index_outputdir: '-{{ outer_index1 }}'
     outputdir: '{{ outer_item.__outputdir | d (outer.item._o) }}{{ append_outputdir | ternary (index_outputdir,"") }}'
-
-- debug:
-    var: __mydumper_backups
