@@ -1,11 +1,5 @@
-- name: Create outputdir
-  file:
-    path: '{{ outer_item.__outputdir | d (outer_item._o) }}'
-    state: directory
-
 - name:  Run mydumper command
   shell: '{{ lookup("template", "mydumper_command.j2") }}'
-  ignore_errors: yes
 
 - name: Create new list with output dir location
   set_fact:
