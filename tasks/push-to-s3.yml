@@ -4,5 +4,13 @@
     bucket: '{{ item.s3.bucket }}'
     object: '{{ item.s3.object }}'
     src: '{{ item.dir_path }}'
+    mode: put
   loop: '{{ __mydumper_backups }}'
   when: item.s3 is defined 
+
+- name: Delete outputdir from local storage
+  file:
+    path: '{{ item.dir_path }}'
+    state: absent
+  when: item.delete_local | d (false)
+  loop: '{{ __mydumper_backups }}'
