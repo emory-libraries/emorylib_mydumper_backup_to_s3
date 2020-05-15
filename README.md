@@ -1,7 +1,7 @@
 Role Name
 =========
 
-This role will perform a mysql dump using the 3rd party tool called mydumper. The role will also restore with the myloader tool.
+This role will perform a mysql dump using the 3rd party tool called mydumper. The backup folder will be pushed to s3 and/or a path on the file system.
 
 Requirements
 ------------
@@ -11,10 +11,8 @@ Mydumper must be installed.
 Role Variables
 --------------
 
-#### mydumper
-The mydumper portion of the role uses a list called mydumper_backups as the main input.
-This list is designed to mimic usage of the mydumper application's flag based system.
-For example if wanting to use the --outputdir flag (also -o), just use ___outputdir_ or __o_.
+The main input of the role is a varible named __mydumper_backup__. This variable has an __option__ key that will mimic usage of the mydumper application's flag based system.  
+For example if wanting to use the --outputdir flag (also -o), just use ___outputdir__ or __o__.
 Please look at the mydumper manual [here](https://github.com/maxbube/mydumper/blob/master/docs/mydumper_usage.rst)
 
 Example:
@@ -28,7 +26,7 @@ mydumper_backup:
     _S: 1234                           # Options are case sensitive
     _h: mysql.db.com                   # Shortname flags work too, note the single underscore.
     __regex: '"^/"'                    # Regex requires single and double quotes
-    __tables_list: tb1,tb2,tb3         # This input reqires a commma seperate list
+    __tables_list: tb1,tb2,tb3         # This input reqires a commma seperated list
   tmp_path:                            # Temporary path for the backup, required
   dest:
     path:                              # File system location backup dir will be copied too either path or s3 must be specified
