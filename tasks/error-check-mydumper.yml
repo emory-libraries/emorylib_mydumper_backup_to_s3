@@ -7,20 +7,12 @@
     fail_msg: Outputdir is required, please use option.__outputdir or option._o
     quiet: yes
 
-- name: Assert that dest is defined with either s3 or path defined as well
-  assert:
-    that:
-      - mydumper_backup.dest is defined
-      - mydumper_backup.dest.s3 is defined or mydumper_backup.dest.path is defined
-    quiet: yes
-    fail_msg: Destination is required, either s3 or a file path must be defined.
-
 - name: Assert that s3 is fully defined when present
   assert:
     that:
-      - mydumper_backup.dest.s3.key_prefix is defined
-      - mydumper_backup.dest.s3.bucket is defined
-      - mydumper_backup.dest.s3.region is defined
+      - mydumper_backup.s3.key_prefix is defined
+      - mydumper_backup.s3.bucket is defined
+      - mydumper_backup.s3.region is defined
     quiet: yes
     fail_msg: s3.key_prefix, s3.bucket, s3.region are all required to enable copy to s3
-  when: mydumper_backup.dest.s3 is defined
+  when: mydumper_backup.s3 is defined

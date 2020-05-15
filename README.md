@@ -20,6 +20,7 @@ Example:
 New mydumper variable scheme:
 ```yaml
 mydumper_backup:
+  delete_output:                       # Will delete the output dir folder at the end of the script when true, default is false
   option:                              # Command line options or flags, underscores are converted into dashes
     __outputdir: /path/to/output/dir   # required, strongly suggest a iso8601 timestamp if S3 storage is desired
     __compress:                        # will set the compress flag, do not add a value.
@@ -27,13 +28,10 @@ mydumper_backup:
     _h: mysql.db.com                   # Shortname flags work too, note the single underscore.
     __regex: '"^/"'                    # Regex requires single and double quotes
     __tables_list: tb1,tb2,tb3         # This input reqires a commma seperated list
-  tmp_path:                            # Temporary path for the backup, required
-  dest:
-    path:                              # File system location backup dir will be copied too either path or s3 must be specified
-    s3:                                # Defining this key will trigger upload to S3, either path or s3 must be specified
-      bucket:                          # S3 Bucket
-      key_prefix:                      # Path to the folder, note that the outputdir will be appended to this prefix automatically
-      region:                          # Region the bucket is in
+  s3:                                # Defining this key will trigger upload to S3, either path or s3 must be specified
+    bucket:                          # S3 Bucket
+    key_prefix:                      # Path to the folder, note that the outputdir will be appended to this prefix automatically
+    region:                          # Region the bucket is in
 ```
 
 
