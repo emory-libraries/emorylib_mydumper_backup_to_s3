@@ -12,7 +12,7 @@ Role Variables
 --------------
 
 The main input of the role is a varible named __mydumper_backup__. This variable has an __option__ key that will mimic usage of the mydumper application's flag based system.  
-For example if wanting to use the --outputdir flag (also -o), just use ___outputdir__ or __o__.
+For example if wanting to use the --outputdir flag (also -o), just use ___outputdir__ or ___o__.
 Please look at the mydumper manual [here](https://github.com/maxbube/mydumper/blob/master/docs/mydumper_usage.rst)
 
 Example:
