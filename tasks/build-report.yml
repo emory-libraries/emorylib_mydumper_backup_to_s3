@@ -1,0 +1,18 @@
+- block:
+    - name: Get stats on local output dir
+      stat:
+        path: '{{ __mydumper_backup.dir_path }}'
+      register: outputdir_stat_info
+
+    - name: Create local output report
+      set_fact:
+        local_output_report: |
+          The mydumper outputdir is located at:
+          {{ outputdir_stat_info.stat.path }}
+          The file size is:
+          {{ outputdir_stat_info.stat.size | human_readable }}
+  when: not __mydumper_backup.delete_output | d (true)
+
+- name: Build S3 Report
+  block:
+    - name: 
