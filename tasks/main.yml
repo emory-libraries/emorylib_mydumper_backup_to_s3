@@ -14,7 +14,7 @@
 - name: Include tasks to build report
   include_tasks: build-report.yml
 
-- name: Include tasks to notify slack
+- name: Include tasks to notify to slack and console
   include_tasks: notify.yml
 
 - name: Delete outputdir from local storage
