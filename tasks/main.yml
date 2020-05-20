@@ -2,35 +2,23 @@
 # tasks file for emorylib_mydumper_s3_backup_restore
 
 - name: Include tasks to error check mydumper
-  include_tasks:
-    file: error-check-mydumper.yml
-    apply:
-      tags:
-        - mydumper
-  tags:
-    - mydumper
+  include_tasks: error-check-mydumper.yml
 
 - name: Include tasks to run mydumper command
-  include_tasks:
-    file: mydumper.yml
-    apply:
-      vars:
-        outer_index1: '{{ ansible_loop.index }}'
-        outer_index0: '{{ ansible_loop.index0 }}'
-      tags:
-        - mydumper
-  loop: '{{ mydumper_backups }}'
-  loop_control:
-    loop_var: outer_item
-    extended: yes
-  tags:
-    - mydumper
+  include_tasks: mydumper.yml
 
-- name: Include tasks to copy mydumper outputdirs to S3
-  include_tasks:
-    file: push-to-s3.yml
-    apply:
-      tags:
-        - mydumper
-  tags:
-    - mydumper
+- name: Include tasks to sync mydumper outputdir to S3
+  include_tasks: push-to-s3.yml
+  when: __mydumper_backup.s3 | d (false)
+
+- name: Include tasks to build report
+  include_tasks: build-report.yml
+
+- name: Include tasks to notify to slack and console
+  include_tasks: notify.yml
+
+- name: Delete outputdir from local storage
+  file:
+    path: '{{ __mydumper_backup.dir_path }}'
+    state: absent
+  when: __mydumper_backup.delete_output | d (false)
