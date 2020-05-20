@@ -43,4 +43,3 @@
   vars:
     awx: 'Job {{"#"}}{{ ansible_facts.env.JOB_ID | d () }} Details (Mydumper Backup)'
     core: Mydumper Backup Details
-    
