@@ -11,11 +11,11 @@
   include_tasks: push-to-s3.yml
   when: __mydumper_backup.s3 | d (false)
 
-- name: Include tasks to notify slack
-  include_tasks: notify.yml
-
 - name: Include tasks to build report
   include_tasks: build-report.yml
+
+- name: Include tasks to notify slack
+  include_tasks: notify.yml
 
 - name: Delete outputdir from local storage
   file:
