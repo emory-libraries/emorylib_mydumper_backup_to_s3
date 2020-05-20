@@ -4,8 +4,8 @@
     var: item
   when: item is defined
   loop:
-    - __local_output_report 
-    - __s3_report
+    - '{{ __local_output_report }}' 
+    - '{{ __s3_report }}'
 
 - name: Notify Slack
   slack:
