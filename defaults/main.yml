@@ -1,5 +1,5 @@
 ---
-# defaults file for emorylib_mydumper_s3_backup_restore
+# defaults file for emorylib_mydumper_backup_to_s3
 mydumper_tmp_dir: /tmp
 
 
