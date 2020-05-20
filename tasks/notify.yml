@@ -2,7 +2,7 @@
 - name: Output reports to console
   debug:
     var: item
-  when: item is defined
+  when: item | length > 0
   loop:
     - '{{ __local_output_report }}' 
     - '{{ __s3_report }}'
