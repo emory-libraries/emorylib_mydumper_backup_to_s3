@@ -16,8 +16,7 @@
 
 - name: Include tasks to notify slack
   include_tasks:
-    file: notify-slack.yml
-  when: mydumper_backup.notify_slack | d (false)
+    file: notify.yml
 
 - name: Delete outputdir from local storage
   file:
